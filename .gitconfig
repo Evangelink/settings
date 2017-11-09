@@ -1,0 +1,47 @@
+[user]
+	name = Amaury Levé
+	email = amaury.leve@sonarsource.com
+[core]
+	editor = 'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession
+	autocrlf = false
+	safecrlf = warn
+	excludesfile = C:\\Users\\Amaury Leve\\Documents\\gitignore_global.txt
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = true
+  pager = true
+[color "status"]
+	added = green bold
+	changed = red bold
+	untracked = blue bold
+[merge]
+	renameLimit = 10000
+[alias]
+	ec = config --global -e
+
+	co = checkout
+    cob = checkout -b
+	ci = commit
+	st = status
+	br = branch
+	pup = push -u origin HEAD
+
+    wip = !git add -u && git commit -m "WIP"
+
+	# checkout a PR from external contributor
+	copr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+
+	# log commands
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+	# list all alias
+	la = "!git config -l | grep alias | cut -c 7-"
+
+	# undo from here http://megakemp.com/2016/08/25/git-undo/
+    undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
+	undelete = "!f() { git checkout $(git rev-list -n 1 HEAD -- \"$1\")^ -- \"$1\"; }; f"
+[branch]
