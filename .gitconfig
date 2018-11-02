@@ -2,8 +2,8 @@
 	name = Amaury Levé
 	email = amaury.leve@sonarsource.com
 [core]
-	editor = 'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession
-	autocrlf = false
+	editor = 'C:\\Users\\Amaury Leve\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe' --wait
+	autocrlf = true
 	safecrlf = warn
 	excludesfile = C:\\Users\\Amaury Leve\\Documents\\gitignore_global.txt
 [color]
@@ -20,28 +20,101 @@
 [merge]
 	renameLimit = 10000
 [alias]
-	ec = config --global -e
-
-	co = checkout
-    cob = checkout -b
-	ci = commit
-	st = status
-	br = branch
-	pup = push -u origin HEAD
-
-    wip = !git add -u && git commit -m "WIP"
-
-	# checkout a PR from external contributor
-	copr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-
-	# log commands
-	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-
-	# list all alias
+    # --- General commands ---
+    # Open the .gitconfig file
+    ec = config --global -e
+    # list all aliases
 	la = "!git config -l | grep alias | cut -c 7-"
 
+    # --- Basic commands ---
+    cl = clone
+    pup = push -u origin HEAD
+    st = status
+    sts = status -s
+    sup = submodule update --init --recursive
+
+    # --- Checkout commands ---
+    co = checkout
+    cosup = "!f(){ git checkout "$@" && git submodule update --init --recursive; }; f"
+    cob = checkout -b
+    com = checkout master
+    comup = !git checkout master && git pull -p && git submodule update --init --recursive
+    # checkout a PR from external contributor
+	copr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+
+    # --- Commit commands ---
+	ci = commit
+    cp = cherry-pick
+    ac = !git add -A && git commit -m
+    wip = !git add -A && git commit -m "WIP"
+    amend = commit -a --amend
+
+    # --- Branch commands ---
+    br = branch
+    # list branches sorted by last modified
+    brs = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+
+    # --- Undo/cancel commands ---
+    # undo last commit
+    undo-ci = reset HEAD~1 --mixed
 	# undo from here http://megakemp.com/2016/08/25/git-undo/
     undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
 	undelete = "!f() { git checkout $(git rev-list -n 1 HEAD -- \"$1\")^ -- \"$1\"; }; f"
+
+    # --- Finding files/content ---
+    findfile = "!git ls-files | grep -i"
+    gr = grep -Ii
+
+    # --- Reset commands ---
+    r = reset
+    r1 = reset HEAD^
+    r2 = reset HEAD^^
+    rh = reset --hard
+    rh1 = reset HEAD^ --hard
+    rh2 = reset HEAD^^ --hard
+
+    # --- Stash commands ---
+    sl = stash list
+    sa = stash apply
+    ss = stash save
+
+    # --- Merge commands ---
+    ours = "!f() { git co --ours $@ && git add $@; }; f"
+    theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+
+    # --- Tag commands ---
+    lasttag = describe --tags --abbrev=0
+
+    # --- Assume commands ---
+    # Assume a file as unchanged:
+    assume = update-index --assume-unchanged
+    # Unassume a file:
+    unassume = update-index --no-assume-unchanged
+    # Show assumed files:
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+    # Unassume all the assumed files:
+    unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+    # Assume all:
+    assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
+
+    # --- Diff commands ---
+    d = diff
+    wdiff = diff --word-diff
+    # Show changes that have been staged
+    diffc = diff --cached
+    diflc = diff --cached HEAD^
+    diffs = diff --stat
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    filelog = log -u
+[diff "csharp"]
+  xfuncname = ^[ \\t]*(((static|public|internal|private|protected|new|virtual|sealed|override|unsafe|async|partial)[ \\t]+)*[][<>@.~_[:alnum:]]+[ \\t]+[<>@._[:alnum:]]+[ \\t]*\\(.*\\))[ \\t]*$
+[winUpdater]
+	recentlySeenVersion = 2.16.2.windows.1
+[credential]
+	helper = manager
+[help]
+	autocorrect = -1
 [branch]
+	autosetuprebase = always # Force all new branches to automatically use rebase
