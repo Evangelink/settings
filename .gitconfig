@@ -19,20 +19,20 @@
 	untracked = blue bold
 [merge]
 	renameLimit = 10000
-[alias]
+[alias]    
     # --- General commands ---
     # Open the .gitconfig file
     ec = config --global -e
     # list all aliases
-	la = "!git config -l | grep alias | cut -c 7-"
+	la = "!git config -l | grep alias | cut -c 7-"	
 
-    # --- Basic commands ---
+    # --- Basic commands ---    
     cl = clone
     pup = push -u origin HEAD
     st = status
     sts = status -s
     sup = submodule update --init --recursive
-
+    
     # --- Checkout commands ---
     co = checkout
     cosup = "!f(){ git checkout "$@" && git submodule update --init --recursive; }; f"
@@ -40,27 +40,27 @@
     com = checkout master
     comup = !git checkout master && git pull -p && git submodule update --init --recursive
     # checkout a PR from external contributor
-	copr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-
+	copr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"    
+    
     # --- Commit commands ---
 	ci = commit
     cp = cherry-pick
     ac = !git add -A && git commit -m
     wip = !git add -A && git commit -m "WIP"
     amend = commit -a --amend
-
+    
     # --- Branch commands ---
     br = branch
     # list branches sorted by last modified
     brs = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-
+    
     # --- Undo/cancel commands ---
     # undo last commit
-    undo-ci = reset HEAD~1 --mixed
+    undo-ci = reset HEAD~1 --mixed    
 	# undo from here http://megakemp.com/2016/08/25/git-undo/
     undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
 	undelete = "!f() { git checkout $(git rev-list -n 1 HEAD -- \"$1\")^ -- \"$1\"; }; f"
-
+    
     # --- Finding files/content ---
     findfile = "!git ls-files | grep -i"
     gr = grep -Ii
@@ -84,7 +84,7 @@
 
     # --- Tag commands ---
     lasttag = describe --tags --abbrev=0
-
+    
     # --- Assume commands ---
     # Assume a file as unchanged:
     assume = update-index --assume-unchanged
@@ -96,12 +96,12 @@
     unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
     # Assume all:
     assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
-
+    
     # --- Diff commands ---
     d = diff
     wdiff = diff --word-diff
     # Show changes that have been staged
-    diffc = diff --cached
+    diffc = diff --cached    
     diflc = diff --cached HEAD^
     diffs = diff --stat
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
