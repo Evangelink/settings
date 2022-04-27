@@ -1,4 +1,5 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": 
     [
@@ -11,12 +12,24 @@
             "keys": "ctrl+c"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
             "command": "paste",
             "keys": "ctrl+v"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+shift+w"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+shift+t"
+        },
+        {
+            "command": "closePane",
+            "keys": "ctrl+w"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
         },
         {
             "command": 
@@ -26,10 +39,25 @@
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command": 
+            {
+                "action": "sendInput",
+                "input": "cd ..\r"
+            },
+            "keys": "ctrl+up"
+        },
+        {
+            "command": 
+            {
+                "action": "newTab"
+            },
+            "keys": "ctrl+t"
         }
     ],
     "copyFormatting": "none",
-    "copyOnSelect": false,
+    "copyOnSelect": true,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "profiles": 
     {
@@ -37,28 +65,73 @@
         {
             "font": 
             {
-                "face": "CaskaydiaCove Nerd Font"
-            }
+                "face": "CaskaydiaCove NF"
+            },
+            "opacity": 90,
+            "useAcrylic": true
         },
         "list": 
         [
-            {
-                "commandline": "powershell.exe",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Invite de commandes"
-            },
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{bc30cacb-171d-5252-825c-66150f414dae}",
+                "hidden": false,
+                "name": "Dev PowerShell for VS 2022 [IntPreview]",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{985e5edb-3ece-5d8a-9a52-4c0b1361ea91}",
+                "hidden": false,
+                "name": "Dev PowerShell for VS 2022 [Preview]",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{e97839af-7d71-53e6-bdbb-280325c2b7b9}",
+                "hidden": false,
+                "name": "Dev PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{d14cf474-dd1e-5768-ab1e-84f1a7ea0b28}",
+                "hidden": true,
+                "name": "Dev PowerShell for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "colorScheme": "Campbell",
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "icon": "https://gist.githubusercontent.com/bradwilson/3b81a192a63056e310e453bc7f4c063d/raw/12c4ca3b01e89d2a9dffa5377af9d7f0923ff9a2/terminal-icon-ubuntu.ico",
+                "name": "Ubuntu",
+                "opacity": 100,
+                "source": "Windows.Terminal.Wsl",
+                "useAcrylic": true
+            },
+            {
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "hidden": false,
+                "icon": "https://scotttopic.com/wp-content/uploads/2017/07/bash-2.ico",
+                "name": "Debian",
+                "opacity": 100,
+                "source": "Windows.Terminal.Wsl",
+                "useAcrylic": true
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
@@ -67,26 +140,34 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+                "guid": "{06c85f80-b84b-59d4-b4b0-514f64e8310e}",
                 "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
+                "name": "Developer Command Prompt for VS 2022 [IntPreview]",
+                "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "commandline": "powershell.exe -NoExit -Command \"&{ $vsInstallPath=& \"${env:ProgramFiles(x86)}/'Microsoft Visual Studio'/Installer/vswhere.exe\" -latest -property installationPath; Import-Module \"$vsInstallPath/Common7/Tools/Microsoft.VisualStudio.DevShell.dll\"; Enter-VsDevShell -VsInstallPath $vsInstallPath -SkipAutomaticLocation }\"",
-                "guid": "{30f9d295-f878-4834-b4dc-06b89463c997}",
-                "hidden": false,
-                "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Visual_Studio_Icon_2019.svg/241px-Visual_Studio_Icon_2019.svg.png",
-                "name": "VS 2019 Developer PowerShell",
-                "startingDirectory": "C:\\Src"
+                "guid": "{877312a2-1cee-5a71-8c02-496bda775533}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2022 [Preview]",
+                "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "commandline": "powershell.exe -NoExit -Command \"&{ $vsInstallPath=& \"${env:ProgramFiles(x86)}/'Microsoft Visual Studio'/Installer/vswhere.exe\" -prerelease -latest -property installationPath; Import-Module \"$vsInstallPath/Common7/Tools/Microsoft.VisualStudio.DevShell.dll\"; Enter-VsDevShell -VsInstallPath $vsInstallPath -SkipAutomaticLocation }\"",
-                "guid": "{1748ecca-abdd-4aa4-bcc4-9fca0d045be5}",
+                "guid": "{062ebc35-698c-5d46-ba20-ec281f42585a}",
                 "hidden": false,
-                "icon": "https://i2.wp.com/downloadlyir.com/wp-content/uploads/2021/07/Visual-Studio-2022.png",
-                "name": "VS 2022 Developer PowerShell",
-                "startingDirectory": "C:\\Src"
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{955f67fc-f082-58f2-ba0a-06f739118286}",
+                "hidden": true,
+                "name": "Developer Command Prompt for VS 2019",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+                "hidden": true,
+                "name": "Visual Studio Debug Console",
+                "source": "VSDebugConsole"
             }
         ]
     },
